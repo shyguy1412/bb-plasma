@@ -1,0 +1,27 @@
+{
+  "name": "bb-plasma",
+  "version": "1.0.0",
+  "description": "kde plasma style GUI for BitBurner",
+  "main": "bitburner/bb-plasma.js",
+  "scripts": {
+    "esbuild": "node build.mjs",
+    "esbuild:watch": "node build.mjs --watch",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/NilsRamstoeck/bb-plasma.git"
+  },
+  "author": "Nils Ramstöck",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/NilsRamstoeck/bb-plasma/issues"
+  },
+  "homepage": "https://github.com/NilsRamstoeck/bb-plasma#readme",
+  "dependencies": {
+    "@fortawesome/free-solid-svg-icons": "^6.4.0",
+    "@fortawesome/react-fontawesome": "^0.2.0",
+    "esbuild": "^0.18.2",
+    "preact": "^10.15.1"
+  }
+}
