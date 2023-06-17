@@ -11,15 +11,24 @@ type Props = {
   title?: string;
   resizable?: boolean;
   minimized?: boolean;
+  x?: number;
+  y?: number;
 };
 
 export function PlasmaWindow(props: PropsWithChildren<Props>) {
-  const { title, children, resizable, minimized = false } = props;
+  const {
+    title,
+    children,
+    resizable,
+    minimized = false,
+    x,
+    y,
+  } = props;
   const [{ windows }, requestAction] = useContext(WindowManagerContext);
   const inFocus = windows[0] == props && !minimized;
   const [isDraggable, setDraggable] = useState(false);
 
-  return <Draggable active={isDraggable}>
+  return <Draggable x={x} y={y} active={isDraggable}>
     <style>{style}</style>
     <div style={{
       display: minimized ? 'none' : undefined
