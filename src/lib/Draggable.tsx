@@ -1,16 +1,16 @@
-import { h } from "preact";
-import { PropsWithChildren, useEffect, useRef, useState } from "preact/compat";
+import type { PropsWithChildren } from "react";
 
 type Props = {
   x?: number;
   y?: number;
   active?: boolean;
+  title: string
 };
 
-export function Draggable({ active = true, x, y, children }: PropsWithChildren<Props>) {
+export function Draggable({title, active = true, x, y, children }: PropsWithChildren<Props>) {
 
-  const [pos, setPos] = useState({ x: x ?? 0, y: y ?? 0 });
-  const ref = useRef<HTMLDivElement>();
+  const [pos, setPos] = window.React.useState({ x: x ?? 0, y: y ?? 0 });
+  const ref = window.React.useRef<HTMLDivElement>();
 
   function mouseMove(e: MouseEvent, offset) {
     setPos({

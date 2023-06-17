@@ -8,8 +8,8 @@
     "lib": ["esnext", "dom", "dom.iterable"],
     "baseUrl": "./",
     "jsx": "react",
-    "jsxFactory": "h",
-    "jsxFragmentFactory": "Fragment",
+    "jsxFactory": "window.React.createElement",
+    "jsxFragmentFactory": "window.React.Fragment",
     "paths": {
       "@/*": ["src/*"]
     }

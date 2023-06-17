@@ -1,7 +1,6 @@
 import { faCaretDown } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { h } from "preact";
-import { PropsWithChildren, useEffect, useRef, useState } from "preact/compat";
+import type { PropsWithChildren } from "react";
 
 type Props = {
   maxWidth?: number;
@@ -11,9 +10,9 @@ type Props = {
 
 export function Resizable({ resizable = true, children }: PropsWithChildren<Props>) {
 
-  const [size, setSize] = useState({ w: 0, h: 0 });
-  const [minSize, setMinSize] = useState({ w: undefined, h: undefined } as typeof size);
-  const ref = useRef<HTMLDivElement>();
+  const [size, setSize] = window.React.useState({ w: 0, h: 0 });
+  const [minSize, setMinSize] = window.React.useState({ w: undefined, h: undefined } as typeof size);
+  const ref = window.React.useRef<HTMLDivElement>();
 
   function mouseMove(e: MouseEvent) {
     setSize({
@@ -22,7 +21,7 @@ export function Resizable({ resizable = true, children }: PropsWithChildren<Prop
     });
   }
 
-  useEffect(() => {
+  window.React.useEffect(() => {
     if (!ref.current) return;
     setMinSize({
       w: ref.current.clientWidth,
@@ -59,7 +58,7 @@ export function Resizable({ resizable = true, children }: PropsWithChildren<Prop
     >
       <FontAwesomeIcon style={{
         transform: 'rotate(-45deg)',
-        'aspect-ratio': '1/1'
+        'aspectRatio': '1/1'
       }} icon={faCaretDown}></FontAwesomeIcon>
     </div>}
   </div >;

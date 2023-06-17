@@ -1,9 +1,7 @@
-import { h, render } from "preact";
 import { DesktopEnviroment } from "./DesktopEnviroment";
 import { NS } from "./types/NetscriptDefinitions";
 import style from "@/style/global.css";
 import { sleep } from "@/lib/Sleep";
-import { unmountComponentAtNode } from "preact/compat";
 
 export async function main(ns: NS) {
 
@@ -21,10 +19,6 @@ export async function main(ns: NS) {
   overlay.style.overflow = 'hidden';
   overlay.style.background = 'black';
 
-  const styleEl = document.createElement('style');
-  styleEl.innerHTML = style;
-  overlay.append(styleEl);
-
   let terminate;
   const keepAlivePromise = new Promise<void>(resolve => terminate = () => {
     resolve();
@@ -41,15 +35,14 @@ export async function main(ns: NS) {
     };
   };
   addEventListener('keydown', devTerm);
-  
+
   ns.atExit(() => {
     removeEventListener('keydown', devTerm);
-    unmountComponentAtNode(overlay);
+    window.ReactDOM.unmountComponentAtNode(overlay);
     overlay.remove();
   });
 
   document.body.prepend(overlay);
-  render(h(DesktopEnviroment, { ns, terminate, reboot }), overlay);
-
+  window.ReactDOM.render(<DesktopEnviroment ns={ns} terminate={terminate} reboot={reboot}></DesktopEnviroment>, overlay);
   return keepAlivePromise;
 }

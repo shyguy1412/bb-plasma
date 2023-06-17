@@ -1,7 +1,5 @@
 import { Svg } from "@/components/Svg";
-import { h, Fragment } from "preact";
 import logo from '@/assets/bitburner-logo.svg';
-import { useState } from "preact/hooks";
 import { HomeMenu } from "@/components/HomeMenu";
 
 type Props = {
@@ -9,10 +7,10 @@ type Props = {
 };
 
 export function HomeButton({ }: Props) {
-  const [showMenu, setShowMenu] = useState(false);
+  const [showMenu, setShowMenu] = window.React.useState(false);
 
   return <>
-    <div class='taskbar-homebutton plasma-button plasma-box-inline'
+    <div className='taskbar-homebutton plasma-button plasma-box-inline'
       onClick={() => {
         setShowMenu(!showMenu);
         if (!showMenu) setTimeout(() => document.querySelector<HTMLDivElement>('.desktop-enviroment')

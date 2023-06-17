@@ -1,11 +1,10 @@
 import { Draggable } from "@/lib/Draggable";
 import { faWindowMinimize, faXmark } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { h } from "preact";
-import { PropsWithChildren, useContext, useState } from "preact/compat";
 import style from '@/style/PlasmaWindow.css';
 import { WindowManagerContext } from "@/DesktopEnviroment";
 import { Resizable } from "@/lib/Resizable";
+import type { PropsWithChildren, ReactNode } from "react";
 
 type Props = {
   title?: string;
@@ -13,7 +12,18 @@ type Props = {
   minimized?: boolean;
   x?: number;
   y?: number;
+  id: number;
 };
+
+let idCounter = 1;
+
+export function createWindow(props: Omit<PropsWithChildren<Props>, 'id'>): Props {
+  const id = idCounter++;
+  return {
+    ...props,
+    id
+  };
+}
 
 export function PlasmaWindow(props: PropsWithChildren<Props>) {
   const {
@@ -24,18 +34,20 @@ export function PlasmaWindow(props: PropsWithChildren<Props>) {
     x,
     y,
   } = props;
-  const [{ windows }, requestAction] = useContext(WindowManagerContext);
-  const inFocus = windows[0] == props && !minimized;
-  const [isDraggable, setDraggable] = useState(false);
+  const [{ windows }, requestAction] = window.React.useContext(WindowManagerContext);
+  const inFocus = windows[0].id == props.id && !minimized;
+  const [isDraggable, setDraggable] = window.React.useState(false);
 
-  return <Draggable x={x} y={y} active={isDraggable}>
+  return !minimized ? <Draggable title={title} x={x} y={y} active={isDraggable}>
     <style>{style}</style>
     <div style={{
       display: minimized ? 'none' : undefined
-    }} className={`plasma-window ${!inFocus || 'plasma-box-glow'} plasma-box`}>
+    }} className={`plasma-window ${inFocus ? 'plasma-box-glow' : ''} plasma-box`}>
       <div
         onMouseDown={(e) => {
           setDraggable(true);
+          console.log('DOWN');
+
           addEventListener('mouseup', () => {
             setDraggable(false);
           }, { once: true });
@@ -46,7 +58,7 @@ export function PlasmaWindow(props: PropsWithChildren<Props>) {
             action: 'MINIMIZE',
             window: props
           })}>
-            <FontAwesomeIcon style={{ 'font-size': '0.9em' }} icon={faWindowMinimize}></FontAwesomeIcon>
+            <FontAwesomeIcon style={{ 'fontSize': '0.9em' }} icon={faWindowMinimize}></FontAwesomeIcon>
           </div>
           <div className="plasma-button plasma-fill plasma-square" onClick={() => requestAction({
             action: 'CLOSE',
@@ -62,5 +74,5 @@ export function PlasmaWindow(props: PropsWithChildren<Props>) {
         </div>
       </Resizable>
     </div>
-  </Draggable>;
+  </Draggable> : <></>;
 }

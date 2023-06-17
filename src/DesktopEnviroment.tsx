@@ -1,11 +1,10 @@
-import { createContext, h } from "preact";
 import { NS } from "@/types/NetscriptDefinitions";
 import { Taskbar } from "@/components/Taskbar";
-import { Desktop } from "@/components/Desktop";
 import { mapObject } from "@/lib/MapObject";
 import style from '@/style/DesktopEnviroment.css';
-import { useReducer } from "preact/hooks";
-import { WindowManager, WindowManagerDispatch, WindowManagerReducer } from "@/lib/WindowManager";
+import globalStyle from '@/style/global.css';
+import { WindowManager, WindowManagerAction, WindowManagerDispatch, WindowManagerReducer } from "@/lib/WindowManager";
+import {Desktop} from '@/components/Desktop'
 
 type Props = {
   ns: NS;
@@ -13,14 +12,14 @@ type Props = {
   reboot: () => void;
 };
 
-export const TerminateContext = createContext<Partial<{ terminate: Props['terminate']; }>>({});
-export const RebootContext = createContext({ reboot: () => { } });
-export const WindowManagerContext = createContext<ReturnType<typeof useReducer<WindowManager, WindowManagerDispatch>>>(null);
+export const TerminateContext = window.React.createContext<Partial<{ terminate: Props['terminate']; }>>({});
+export const RebootContext = window.React.createContext({ reboot: () => { } });
+export const WindowManagerContext = window.React.createContext<[WindowManager, React.Dispatch<WindowManagerDispatch<WindowManagerAction>>]>(null);
 
 
 export function DesktopEnviroment({ ns, terminate, reboot }: Props) {
 
-  const windowManager = useReducer<WindowManager, WindowManagerDispatch>(WindowManagerReducer, {
+  const windowManager = window.React.useReducer(WindowManagerReducer, {
     windows: []
   });
 
@@ -29,7 +28,7 @@ export function DesktopEnviroment({ ns, terminate, reboot }: Props) {
   }));
 
   return <div className='desktop-enviroment' style={theme}>
-    <style>{style}</style>
+    <style>{style}{globalStyle}</style>
     <WindowManagerContext.Provider value={windowManager}>
 
       <Desktop>
@@ -42,5 +41,5 @@ export function DesktopEnviroment({ ns, terminate, reboot }: Props) {
       </RebootContext.Provider>
 
     </WindowManagerContext.Provider>
-  </div >;
+  </div>;
 }
