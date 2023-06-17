@@ -21,7 +21,7 @@ export function Desktop({ children }: PropsWithChildren<Props>) {
     });
   }, []);
 
-  return <div>
+  return <div className='plasma-desktop'>
     {[...windows].map(props => PlasmaWindow(props))}
   </div>;
 }

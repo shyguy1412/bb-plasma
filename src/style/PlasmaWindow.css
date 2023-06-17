@@ -6,6 +6,7 @@
   user-select: none;
   gap: 0.5em;
   cursor: move;
+  height: 30px;
 }
 
 .plasma-window>.plasma-window-titlebar>span:first-child {

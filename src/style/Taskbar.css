@@ -3,11 +3,21 @@
   border-block: 1px solid var(--welllight);
   height: 45px;
   display: flex;
-  /* grid-template-columns: 45px auto auto; */
+  position: relative;
+  z-index: 1;
 }
 
 .taskbar>* {
-  height: 45px;
+  height: 43px;
+}
+
+.taskbar-windows {
+  width: -webkit-fill-available;
+}
+
+.taskbar-windows>* {
+  height: 100%;
+  user-select: none;
 }
 
 .taskbar-homebutton {
@@ -34,7 +44,6 @@
   grid-template-columns: 30px auto;
 }
 
-
 .taskbar-date {
   display: flex;
   justify-content: center;
@@ -45,4 +54,21 @@
   width: fit-content;
   justify-self: right;
   padding-inline: 10px;
+}
+
+.taskbar-entry {
+  height: 100%;
+  width: fit-content;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding-inline: 5px;
+}
+
+.taskbar-entry-focus{
+  background-color: var(--well);
+}
+
+.taskbar-entry-focus:hover{
+  filter: brightness(1.5);
 }

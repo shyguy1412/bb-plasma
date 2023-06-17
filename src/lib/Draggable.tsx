@@ -23,8 +23,8 @@ export function Draggable({ active = true, x, y, children }: PropsWithChildren<P
     ref={ref}
     style={{
       position: 'absolute',
-      left: pos.x + 'px',
-      top: pos.y + 'px',
+      left: pos.x,
+      top: pos.y,
     }}
     onMouseDown={(e) => {
       if (!active) return;

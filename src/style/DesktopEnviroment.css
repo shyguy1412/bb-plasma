@@ -13,3 +13,7 @@
   color: var(--primarylight);
   font-size: 1.05em;
 }
+
+.plasma-desktop{
+  overflow: hidden;
+}
