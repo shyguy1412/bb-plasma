@@ -11,25 +11,15 @@ type Props = {
 export function Draggable({ active = true, x, y, children }: PropsWithChildren<Props>) {
 
   const [pos, setPos] = useState({ x: x ?? 0, y: y ?? 0 });
-  const [isDraggable, setDraggable] = useState({ val: active });
   const ref = useRef<HTMLDivElement>();
 
   function mouseMove(e: MouseEvent, offset) {
-    console.log(isDraggable);
-
-    if (!isDraggable.val) return;
     setPos({
       x: e.clientX - offset.x,
       y: e.clientY - offset.y
     });
   }
-
-  useEffect(() => {
-    setDraggable({ val: active });
-    console.log('DRAGGABLE', active);
-
-  }, [active]);
-
+  
   return <div
     ref={ref}
     style={{
@@ -38,6 +28,7 @@ export function Draggable({ active = true, x, y, children }: PropsWithChildren<P
       top: pos.y,
     }}
     onMouseDown={(e) => {
+      if(!active)return;
       if (!ref.current) return;
       const offset = {
         x: e.clientX - ref.current.getBoundingClientRect().x,
