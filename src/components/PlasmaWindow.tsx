@@ -46,7 +46,13 @@ export function PlasmaWindow(props: PropsWithChildren<Props>) {
     <style>{style}</style>
     <div style={{
       display: minimized ? 'none' : undefined
-    }} className={`plasma-window ${inFocus ? 'plasma-box-glow' : ''} plasma-box`}>
+    }}
+      className={`plasma-window ${inFocus ? 'plasma-box-glow' : ''} plasma-box`}
+      onMouseDown={() => requestAction({
+        action: 'FOCUS',
+        window: props
+      })}
+    >
       <div
         onMouseDown={(e) => {
           setDraggable(true);
