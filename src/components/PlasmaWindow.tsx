@@ -42,7 +42,7 @@ export function PlasmaWindow(props: PropsWithChildren<Props>) {
 
   console.log('HALLO');
 
-  return !minimized ? <Draggable x={x} y={y} active={isDraggable}>
+  return <Draggable x={x} y={y} active={isDraggable}>
     <style>{style}</style>
     <div style={{
       display: minimized ? 'none' : undefined
@@ -82,5 +82,5 @@ export function PlasmaWindow(props: PropsWithChildren<Props>) {
         </div>
       </Resizable>
     </div>
-  </Draggable> : <></>;
+  </Draggable>;
 }
