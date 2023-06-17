@@ -30,21 +30,26 @@ export async function main(ns: NS) {
     resolve();
   });
 
-  let devTerm = (e: KeyboardEvent) => {
+  const reboot = () => {
+    ns.run(ns.getScriptName());
+    terminate();
+  };
+
+  const devTerm = (e: KeyboardEvent) => {
     if (e.key == 'Escape') {
-      terminate();
-      removeEventListener('keydown', devTerm);
+      reboot();
     };
   };
   addEventListener('keydown', devTerm);
-
-  document.body.prepend(overlay);
-
-  render(h(DesktopEnviroment, { ns, terminate }), overlay);
+  
   ns.atExit(() => {
-    unmountComponentAtNode(overlay);    
+    removeEventListener('keydown', devTerm);
+    unmountComponentAtNode(overlay);
     overlay.remove();
   });
+
+  document.body.prepend(overlay);
+  render(h(DesktopEnviroment, { ns, terminate, reboot }), overlay);
 
   return keepAlivePromise;
 }
