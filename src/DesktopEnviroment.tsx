@@ -3,7 +3,7 @@ import { NS } from "@/types/NetscriptDefinitions";
 import { Taskbar } from "@/components/Taskbar";
 import { Desktop } from "@/components/Desktop";
 import { mapObject } from "@/lib/MapObject";
-import { PlasmaWindow } from "@/components/PlasmaWindow";
+import style from '@/style/DesktopEnviroment.css';
 
 type Props = {
   ns: NS;
@@ -21,6 +21,7 @@ export function DesktopEnviroment({ ns, terminate }: Props) {
 
 
   return <div className='desktop-enviroment' style={theme}>
+    <style>{style}</style>
     <Desktop>
       <PlasmaWindow title="Test Window">
         asfjiosfgjasoifghjasoig

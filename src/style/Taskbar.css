@@ -1,0 +1,48 @@
+.taskbar {
+  background-color: var(--backgroundprimary);
+  border-block: 1px solid var(--welllight);
+  height: 45px;
+  display: flex;
+  /* grid-template-columns: 45px auto auto; */
+}
+
+.taskbar>* {
+  height: 45px;
+}
+
+.taskbar-homebutton {
+  width: 45px;
+  flex-shrink: 0;
+}
+
+.homemenu {
+  position: absolute;
+  left: 0;
+  bottom: 45px;
+  height: fit-content;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.homemenu>* {
+  padding: 5px;
+  width: 100%;
+  gap: 1em;
+  display: grid;
+  grid-template-columns: 30px auto;
+}
+
+
+.taskbar-date {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  flex-direction: column;
+  user-select: none;
+  width: fit-content;
+  justify-self: right;
+  padding-inline: 10px;
+}
