@@ -2,16 +2,18 @@ import { HomeButton } from "@/components/HomeButton";
 import style from '@/style/Taskbar.css';
 import { WindowManagerContext } from "@/DesktopEnviroment";
 import { TaskbarEntry } from "@/components/TaskbarEntry";
+import { h } from "preact";
+import { useState, useContext, useEffect } from "preact/hooks";
 
 type Props = {
 };
 
 export function Taskbar({ }: Props) {
 
-  const [clock, setClock] = window.React.useState(Date.now());
-  const [{ windows }] = window.React.useContext(WindowManagerContext);
+  const [clock, setClock] = useState(Date.now());
+  const [{ windows }] = useContext(WindowManagerContext);
 
-  window.React.useEffect(() => {
+  useEffect(() => {
     const interval = setInterval(() => {
       setClock(Date.now());
     }, 1000);

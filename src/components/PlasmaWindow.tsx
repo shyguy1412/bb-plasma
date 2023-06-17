@@ -5,6 +5,8 @@ import style from '@/style/PlasmaWindow.css';
 import { WindowManagerContext } from "@/DesktopEnviroment";
 import { Resizable } from "@/lib/Resizable";
 import type { PropsWithChildren, ReactNode } from "react";
+import { h, Fragment } from "preact";
+import { useContext, useState } from "preact/hooks";
 
 type Props = {
   title?: string;
@@ -34,11 +36,13 @@ export function PlasmaWindow(props: PropsWithChildren<Props>) {
     x,
     y,
   } = props;
-  const [{ windows }, requestAction] = window.React.useContext(WindowManagerContext);
+  const [{ windows }, requestAction] = useContext(WindowManagerContext);
   const inFocus = windows[0].id == props.id && !minimized;
-  const [isDraggable, setDraggable] = window.React.useState(false);
+  const [isDraggable, setDraggable] = useState(false);
 
-  return !minimized ? <Draggable title={title} x={x} y={y} active={isDraggable}>
+  console.log('HALLO');
+
+  return !minimized ? <Draggable x={x} y={y} active={isDraggable}>
     <style>{style}</style>
     <div style={{
       display: minimized ? 'none' : undefined
@@ -46,8 +50,6 @@ export function PlasmaWindow(props: PropsWithChildren<Props>) {
       <div
         onMouseDown={(e) => {
           setDraggable(true);
-          console.log('DOWN');
-
           addEventListener('mouseup', () => {
             setDraggable(false);
           }, { once: true });

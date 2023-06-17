@@ -10,7 +10,7 @@ const ctx = await context({
   format: 'esm',
   loader: { '.svg': 'text', '.css': 'text' },
   alias: {
-    // 'react': 'preact/compat'
+    'react': 'preact/compat'
   },
   platform: 'browser',
   logLevel: 'info'

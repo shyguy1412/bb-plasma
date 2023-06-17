@@ -1,7 +1,8 @@
 import { DesktopEnviroment } from "./DesktopEnviroment";
 import { NS } from "./types/NetscriptDefinitions";
-import style from "@/style/global.css";
 import { sleep } from "@/lib/Sleep";
+import { unmountComponentAtNode } from "preact/compat";
+import { h, render } from "preact";
 
 export async function main(ns: NS) {
 
@@ -38,11 +39,11 @@ export async function main(ns: NS) {
 
   ns.atExit(() => {
     removeEventListener('keydown', devTerm);
-    window.ReactDOM.unmountComponentAtNode(overlay);
+    unmountComponentAtNode(overlay);
     overlay.remove();
   });
 
   document.body.prepend(overlay);
-  window.ReactDOM.render(<DesktopEnviroment ns={ns} terminate={terminate} reboot={reboot}></DesktopEnviroment>, overlay);
+  render(<DesktopEnviroment ns={ns} terminate={terminate} reboot={reboot}></DesktopEnviroment>, overlay);
   return keepAlivePromise;
 }

@@ -3,12 +3,14 @@ import style from '@/style/Taskbar.css';
 import { WindowManagerContext } from "@/DesktopEnviroment";
 import { PlasmaWindow } from "@/components/PlasmaWindow";
 import type { PropsWithChildren } from 'react';
+import { h } from 'preact';
+import { useContext } from 'preact/hooks';
 
 type Props = Parameters<typeof PlasmaWindow>[0];
 
 export function TaskbarEntry(props: PropsWithChildren<Props>) {
   const { title, minimized } = props;
-  const [{ windows }, requestAction] = window.React.useContext(WindowManagerContext);
+  const [{ windows }, requestAction] = useContext(WindowManagerContext);
   const inFocus = windows[0].id == props.id && !minimized;
   
   return <div className={`taskbar-entry plasma-button plasma-box-right ${!inFocus || 'taskbar-entry-focus'}`}

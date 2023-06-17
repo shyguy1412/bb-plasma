@@ -1,6 +1,8 @@
 import { createWindow, PlasmaWindow } from "@/components/PlasmaWindow";
 import { WindowManagerContext } from "@/DesktopEnviroment";
-import type { PropsWithChildren } from "react";
+import { h } from "preact";
+import { PropsWithChildren } from "preact/compat";
+import { useContext, useEffect } from "preact/hooks";
 
 type Props = {
 
@@ -8,9 +10,9 @@ type Props = {
 
 export function Desktop({ children }: PropsWithChildren<Props>) {
 
-  const [{ windows }, dispatch] = window.React.useContext(WindowManagerContext);
+  const [{ windows }, dispatch] = useContext(WindowManagerContext);
 
-  window.React.useEffect(() => {
+  useEffect(() => {
     console.log('CREATING');
 
     dispatch({
@@ -32,6 +34,9 @@ export function Desktop({ children }: PropsWithChildren<Props>) {
       })
     });
   }, []);
+
+  console.log(windows);
+  
 
   return <div className='plasma-desktop'>
     {windows.map((props) => <PlasmaWindow key={props.id} {...props}></PlasmaWindow>)}

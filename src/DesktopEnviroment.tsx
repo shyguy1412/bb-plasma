@@ -5,6 +5,8 @@ import style from '@/style/DesktopEnviroment.css';
 import globalStyle from '@/style/global.css';
 import { WindowManager, WindowManagerAction, WindowManagerDispatch, WindowManagerReducer } from "@/lib/WindowManager";
 import {Desktop} from '@/components/Desktop'
+import { createContext, h } from "preact";
+import { useReducer } from "preact/hooks";
 
 type Props = {
   ns: NS;
@@ -12,14 +14,14 @@ type Props = {
   reboot: () => void;
 };
 
-export const TerminateContext = window.React.createContext<Partial<{ terminate: Props['terminate']; }>>({});
-export const RebootContext = window.React.createContext({ reboot: () => { } });
-export const WindowManagerContext = window.React.createContext<[WindowManager, React.Dispatch<WindowManagerDispatch<WindowManagerAction>>]>(null);
+export const TerminateContext = createContext<Partial<{ terminate: Props['terminate']; }>>({});
+export const RebootContext = createContext({ reboot: () => { } });
+export const WindowManagerContext = createContext<[WindowManager, React.Dispatch<WindowManagerDispatch<WindowManagerAction>>]>(null);
 
 
 export function DesktopEnviroment({ ns, terminate, reboot }: Props) {
 
-  const windowManager = window.React.useReducer(WindowManagerReducer, {
+  const windowManager = useReducer(WindowManagerReducer, {
     windows: []
   });
 

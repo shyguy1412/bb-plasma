@@ -1,14 +1,16 @@
 import { RebootContext, TerminateContext } from "@/DesktopEnviroment";
 import { faArrowsRotate, faPowerOff } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { h } from "preact";
+import { useContext } from "preact/hooks";
 
 type Props = {
 
 };
 
 export function HomeMenu({ }: Props) {
-  const { terminate } = window.React.useContext(TerminateContext);
-  const { reboot } = window.React.useContext(RebootContext);
+  const { terminate } = useContext(TerminateContext);
+  const { reboot } = useContext(RebootContext);
 
   return <div className='homemenu plasma-box-inline'>
     <span className='plasma-button plasma-box-top' onClick={() => reboot()}>

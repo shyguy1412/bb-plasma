@@ -1,5 +1,7 @@
 import { faCaretDown } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { h } from "preact";
+import { useState, useRef, useEffect } from "preact/hooks";
 import type { PropsWithChildren } from "react";
 
 type Props = {
@@ -10,9 +12,9 @@ type Props = {
 
 export function Resizable({ resizable = true, children }: PropsWithChildren<Props>) {
 
-  const [size, setSize] = window.React.useState({ w: 0, h: 0 });
-  const [minSize, setMinSize] = window.React.useState({ w: undefined, h: undefined } as typeof size);
-  const ref = window.React.useRef<HTMLDivElement>();
+  const [size, setSize] = useState({ w: 0, h: 0 });
+  const [minSize, setMinSize] = useState({ w: undefined, h: undefined } as typeof size);
+  const ref = useRef<HTMLDivElement>();
 
   function mouseMove(e: MouseEvent) {
     setSize({
@@ -21,7 +23,7 @@ export function Resizable({ resizable = true, children }: PropsWithChildren<Prop
     });
   }
 
-  window.React.useEffect(() => {
+  useEffect(() => {
     if (!ref.current) return;
     setMinSize({
       w: ref.current.clientWidth,
