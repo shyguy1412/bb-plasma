@@ -21,7 +21,7 @@ export const WindowManagerContext = createContext<ReturnType<typeof useReducer<W
 export function DesktopEnviroment({ ns, terminate, reboot }: Props) {
 
   const windowManager = useReducer<WindowManager, WindowManagerDispatch>(WindowManagerReducer, {
-    windows: new Set()
+    windows: []
   });
 
   const theme = mapObject(ns.ui.getTheme(), (key, value) => ({

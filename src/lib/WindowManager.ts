@@ -2,10 +2,10 @@ import { PlasmaWindow } from "@/components/PlasmaWindow";
 import { JSX } from "preact";
 
 export interface WindowManager {
-  windows: Set<Parameters<typeof PlasmaWindow>[0]>;
+  windows: Parameters<typeof PlasmaWindow>[0][];
 }
 
-type WindowManagerAction = 'CREATE' | 'CLOSE' | 'MINIMIZE' | 'MAXIMISE';
+type WindowManagerAction = 'CREATE' | 'CLOSE' | 'MINIMIZE' | 'MAXIMISE' | 'FOCUS';
 
 export interface WindowManagerDispatch<T extends WindowManagerAction = WindowManagerAction> {
   action: T;
@@ -20,24 +20,29 @@ type WindowManagerActionHandler<T extends WindowManagerAction> = (state: WindowM
 
 const ActionHandler: WindowManagerActionHandlerMap = {
   CREATE: function (state: WindowManager, { action, window }: WindowManagerDispatch<"CREATE">): WindowManager {
-    state.windows.add(window);
-    return {
-      windows: state.windows
-    };
+    if (state.windows.includes(window))
+      return;
+    state.windows.push(window);
+    return { ...state };
   },
   CLOSE: function (state: WindowManager, { action, window }: WindowManagerDispatch<"CLOSE">): WindowManager {
-    state.windows.delete(window);
     return {
-      windows: state.windows
+      windows: state.windows.filter(w => w != window)
     };
   },
   MINIMIZE: function (state: WindowManager, { action, window }: WindowManagerDispatch<"MINIMIZE">): WindowManager {
-    console.log(window);
-
-    throw new Error("Function not implemented.");
+    window.minimized = true;
+    return { ...state };
   },
   MAXIMISE: function (state: WindowManager, { action, window }: WindowManagerDispatch<"MAXIMISE">): WindowManager {
-    throw new Error("Function not implemented.");
+    window.minimized = false;
+    return { ...state };
+  },
+  FOCUS: function (state: WindowManager, { action, window }: WindowManagerDispatch<"FOCUS">): WindowManager {
+    window.minimized = false;
+    return {
+      windows: [window, ...state.windows.filter(w => w != window)]
+    };
   }
 };
 
