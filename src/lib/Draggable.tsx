@@ -13,7 +13,6 @@ export function Draggable({ active = true, x, y, children }: PropsWithChildren<P
   const ref = useRef<HTMLDivElement>();
 
   function mouseMove(e: MouseEvent, offset) {
-    console.log(offset);
     setPos({
       x: e.clientX - offset.x,
       y: e.clientY - offset.y
