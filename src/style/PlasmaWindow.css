@@ -10,6 +10,10 @@
   height: 30px;
 }
 
+.plasma-window-titlebar svg{
+  margin-right: 10px;
+}
+
 .plasma-window>.plasma-window-titlebar>span:first-child {
   display: flex;
   justify-content: left;

@@ -14,11 +14,11 @@ export function HomeMenu({ }: Props) {
 
   return <div className='homemenu plasma-box-inline'>
     <span className='plasma-button plasma-box-top' onClick={() => reboot()}>
-      <FontAwesomeIcon style={{ fontSize: '1.5em' }} icon={faArrowsRotate}></FontAwesomeIcon>
+      <FontAwesomeIcon icon={faArrowsRotate}></FontAwesomeIcon>
       <span className='plasma-center'>Reboot</span>
     </span>
     <span className='plasma-button plasma-box-top' onClick={() => terminate()}>
-      <FontAwesomeIcon style={{ fontSize: '1.5em' }} icon={faPowerOff}></FontAwesomeIcon>
+      <FontAwesomeIcon icon={faPowerOff}></FontAwesomeIcon>
       <span className='plasma-center'>Shutdown</span>
     </span>
   </div>;
