@@ -5,7 +5,6 @@
 .plasma-window>.plasma-window-titlebar {
   display: flex;
   justify-content: space-between;
-  user-select: none;
   gap: 0.5em;
   cursor: move;
   height: 30px;

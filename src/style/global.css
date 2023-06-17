@@ -42,7 +42,6 @@ div#root {
 
 .plasma-button {
   cursor: pointer;
-  user-select: none;
 }
 
 .plasma-button:hover {
