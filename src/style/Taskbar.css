@@ -13,6 +13,7 @@
 
 .taskbar-windows {
   width: -webkit-fill-available;
+  display: flex;
 }
 
 .taskbar-windows>* {
