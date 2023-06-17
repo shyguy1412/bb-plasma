@@ -46,7 +46,7 @@ export function Resizable({ resizable = true, children }: PropsWithChildren<Prop
         right: '-3px',
         bottom: '-3px',
         display: 'flex',
-        cursor: 'nwse-resize'
+        cursor: 'nwse-resize',
       }}
       onMouseDown={(e) => {
         if (!resizable) return;

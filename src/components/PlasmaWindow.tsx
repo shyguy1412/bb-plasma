@@ -37,7 +37,7 @@ export function PlasmaWindow(props: PropsWithChildren<Props>) {
     y,
   } = props;
   const [{ windows }, requestAction] = useContext(WindowManagerContext);
-  const inFocus = windows[0].id == props.id && !minimized;
+  const inFocus = windows.at(-1).id == props.id && !minimized;
   const [isDraggable, setDraggable] = useState(false);
 
   console.log('HALLO');

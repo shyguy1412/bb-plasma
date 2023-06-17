@@ -11,7 +11,7 @@ type Props = Parameters<typeof PlasmaWindow>[0];
 export function TaskbarEntry(props: PropsWithChildren<Props>) {
   const { title, minimized } = props;
   const [{ windows }, requestAction] = useContext(WindowManagerContext);
-  const inFocus = windows[0].id == props.id && !minimized;
+  const inFocus = windows.at(-1).id == props.id && !minimized;
   
   return <div className={`taskbar-entry plasma-button plasma-box-right ${!inFocus || 'taskbar-entry-focus'}`}
     onClick={() => {

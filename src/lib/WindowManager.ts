@@ -25,7 +25,7 @@ const ActionHandler: WindowManagerActionHandlerMap = {
   CREATE: function (state: WindowManager, { action, window }: WindowManagerDispatch<"CREATE">): WindowManager {
     if (getWindow(state, window))
       return;
-    state.windows.push(window);
+    state.windows.unshift(window);
     return { ...state };
   },
   CLOSE: function (state: WindowManager, { action, window }: WindowManagerDispatch<"CLOSE">): WindowManager {
@@ -35,7 +35,7 @@ const ActionHandler: WindowManagerActionHandlerMap = {
   },
   MINIMIZE: function (state: WindowManager, { action, window }: WindowManagerDispatch<"MINIMIZE">): WindowManager {
     getWindow(state, window).minimized = true;
-    state.windows.push(state.windows.shift());
+    state.windows.unshift(state.windows.pop());
     return { ...state };
   },
   MAXIMISE: function (state: WindowManager, { action, window }: WindowManagerDispatch<"MAXIMISE">): WindowManager {
@@ -45,7 +45,7 @@ const ActionHandler: WindowManagerActionHandlerMap = {
   FOCUS: function (state: WindowManager, { action, window }: WindowManagerDispatch<"FOCUS">): WindowManager {
     window.minimized = false;
     return {
-      windows: [window, ...state.windows.filter(w => w.id != window.id)]
+      windows: [...state.windows.filter(w => w.id != window.id), window]
     };
   }
 };
