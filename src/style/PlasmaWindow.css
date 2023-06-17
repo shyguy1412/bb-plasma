@@ -1,4 +1,6 @@
-.plasma-window {}
+.plasma-window > *{
+  background-color: var(--backgroundprimary);
+}
 
 .plasma-window>.plasma-window-titlebar {
   display: flex;
@@ -13,6 +15,7 @@
   display: flex;
   justify-content: left;
   align-items: center;
+  padding-left: 5px;
 }
 
 .plasma-window>.plasma-window-titlebar>span:last-child {
@@ -31,4 +34,8 @@
 
 .plasma-window>.plasma-window-titlebar>span:last-child>div>svg {
   aspect-ratio: 1/1;
+}
+
+.plasma-window .plasma-window-content{
+  padding: 5px;
 }
