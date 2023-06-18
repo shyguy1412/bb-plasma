@@ -6,11 +6,11 @@ type Props = {
   x?: number;
   y?: number;
   active?: boolean;
-  ref?: MutableRef<HTMLDivElement>;
+  _ref?: MutableRef<HTMLDivElement>;
 };
 
-export function Draggable({ ref, active = true, x, y, children }: PropsWithChildren<Props>) {
-  ref = ref ?? useRef<HTMLDivElement>();
+export function Draggable({ _ref, active = true, x, y, children }: PropsWithChildren<Props>) {
+  const ref = _ref ?? useRef<HTMLDivElement>();
 
   const [pos, setPos] = useState({ x: x ?? 0, y: y ?? 0 });
 
