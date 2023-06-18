@@ -3,8 +3,8 @@ import { Taskbar } from "@/components/Taskbar";
 import { mapObject } from "@/lib/MapObject";
 import style from '@/style/DesktopEnviroment.css';
 import globalStyle from '@/style/global.css';
-import { WindowManagerState, WindowManagerAction, WindowManagerDispatch, WindowManagerReducer, WindowManager } from "@/lib/WindowManager";
-import {Desktop} from '@/components/Desktop'
+import { WindowManagerReducer, WindowManager } from "@/lib/WindowManager";
+import { Desktop } from '@/components/Desktop';
 import { createContext, h } from "preact";
 import { useReducer } from "preact/hooks";
 
