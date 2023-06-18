@@ -33,8 +33,7 @@ export function DesktopEnviroment({ ns, terminate, reboot }: Props) {
     <style>{style}{globalStyle}</style>
     <WindowManagerContext.Provider value={windowManager}>
 
-      <Desktop>
-      </Desktop>
+      <Desktop></Desktop>
 
       <RebootContext.Provider value={{ reboot }}>
         <TerminateContext.Provider value={{ terminate }}>
