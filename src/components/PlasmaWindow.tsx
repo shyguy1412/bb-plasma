@@ -5,8 +5,8 @@ import style from '@/style/PlasmaWindow.css';
 import { WindowManagerContext } from "@/DesktopEnviroment";
 import { Resizable } from "@/lib/Resizable";
 import type { PropsWithChildren } from "react";
-import { h, createContext } from "preact";
-import { useContext, useState } from "preact/hooks";
+import { h, createContext, createRef } from "preact";
+import { useContext, useEffect, useState } from "preact/hooks";
 
 type Props = {
   title?: string;
@@ -40,11 +40,21 @@ export function PlasmaWindow(props: PropsWithChildren<Props>) {
     y,
     icon
   } = props;
-  const [{ windows }, requestAction] = useContext(WindowManagerContext);
-  const inFocus = windows.at(-1).id == props.id && !minimized;
-  const [isDraggable, setDraggable] = useState(false);
 
-  return <Draggable x={x} y={y} active={isDraggable}>
+  const [{ windows }, requestAction] = useContext(WindowManagerContext);
+  const [isDraggable, setDraggable] = useState(false);
+  const inFocus = windows.at(-1).id == props.id && !minimized;
+  const draggableRef = createRef<HTMLDivElement>();
+
+
+  //effect to center the window if no start position was specified
+  useEffect(() => {
+    if (!draggableRef.current) return;
+    draggableRef.current.style.left = x ?? document.body.clientWidth / 2 - draggableRef.current.clientWidth / 2 + 'px';
+    draggableRef.current.style.top = y ?? document.body.clientHeight / 2 - draggableRef.current.clientHeight / 2 + 'px';
+  }, [draggableRef]);
+
+  return <Draggable _ref={draggableRef} x={x} y={y} active={isDraggable}>
     <style>{style}</style>
     <div style={{
       display: minimized ? 'none' : undefined
