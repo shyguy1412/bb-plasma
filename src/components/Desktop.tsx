@@ -13,7 +13,6 @@ export function Desktop({ children }: PropsWithChildren<Props>) {
   const [{ windows }, dispatch] = useContext(WindowManagerContext);
 
   useEffect(() => {
-    console.log('CREATING');
 
     dispatch({
       action: 'CREATE',
@@ -34,9 +33,6 @@ export function Desktop({ children }: PropsWithChildren<Props>) {
       })
     });
   }, []);
-
-  console.log(windows);
-  
 
   return <div className='plasma-desktop'>
     {windows.map((props) => <PlasmaWindow key={props.id} {...props}></PlasmaWindow>)}

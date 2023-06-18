@@ -42,8 +42,6 @@ export function PlasmaWindow(props: PropsWithChildren<Props>) {
   const inFocus = windows.at(-1).id == props.id && !minimized;
   const [isDraggable, setDraggable] = useState(false);
 
-  console.log('HALLO');
-
   return <Draggable x={x} y={y} active={isDraggable}>
     <style>{style}</style>
     <div style={{
