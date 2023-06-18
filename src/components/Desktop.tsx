@@ -1,40 +1,26 @@
-import { createWindow, PlasmaWindow } from "@/components/PlasmaWindow";
+import { PlasmaWindow } from "@/components/PlasmaWindow";
 import { WindowManagerContext } from "@/DesktopEnviroment";
-import { h } from "preact";
+import { createContext, h } from "preact";
 import { PropsWithChildren } from "preact/compat";
-import { useContext, useEffect } from "preact/hooks";
+import { useContext, useRef } from "preact/hooks";
 
 type Props = {
 
 };
 
+export const DesktopDimensionContext = createContext({ w: 0, h: 0 });
+
 export function Desktop({ children }: PropsWithChildren<Props>) {
 
   const [{ windows }, dispatch] = useContext(WindowManagerContext);
+  const desktopElement = useRef<HTMLDivElement>();
 
-  useEffect(() => {
-
-    dispatch({
-      action: 'CREATE',
-      window: createWindow({
-        title: "Test Window 1",
-        children: "Bla Bla Bla",
-        x: 100,
-        y: 50,
-      })
-    });
-    dispatch({
-      action: 'CREATE',
-      window: createWindow({
-        title: "Test Window 2",
-        children: "Bla Bla Bla",
-        x: 500,
-        y: 50,
-      })
-    });
-  }, []);
-
-  return <div className='plasma-desktop'>
-    {windows.map((props) => <PlasmaWindow key={props.id} {...props}></PlasmaWindow>)}
-  </div>;
+  return <DesktopDimensionContext.Provider value={{
+    w: desktopElement.current?.clientHeight ?? 0,
+    h: desktopElement.current?.clientWidth ?? 0
+  }}>
+    <div ref={desktopElement} className='plasma-desktop'>
+      {windows.map((props) => <PlasmaWindow key={props.id} {...props}></PlasmaWindow>)}
+    </div>
+  </DesktopDimensionContext.Provider>;
 }
