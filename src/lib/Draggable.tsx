@@ -1,17 +1,18 @@
 import { h } from "preact";
-import { useEffect, useRef, useState } from 'preact/hooks';
+import { MutableRef, useRef, useState } from 'preact/hooks';
 import type { PropsWithChildren } from 'preact/compat';
 
 type Props = {
   x?: number;
   y?: number;
   active?: boolean;
+  ref?: MutableRef<HTMLDivElement>;
 };
 
-export function Draggable({ active = true, x, y, children }: PropsWithChildren<Props>) {
+export function Draggable({ ref, active = true, x, y, children }: PropsWithChildren<Props>) {
+  ref = ref ?? useRef<HTMLDivElement>();
 
   const [pos, setPos] = useState({ x: x ?? 0, y: y ?? 0 });
-  const ref = useRef<HTMLDivElement>();
 
   function mouseMove(e: MouseEvent, offset) {
     setPos({
@@ -19,7 +20,7 @@ export function Draggable({ active = true, x, y, children }: PropsWithChildren<P
       y: e.clientY - offset.y
     });
   }
-  
+
   return <div
     ref={ref}
     style={{
@@ -28,7 +29,7 @@ export function Draggable({ active = true, x, y, children }: PropsWithChildren<P
       top: pos.y,
     }}
     onMouseDown={(e) => {
-      if(!active)return;
+      if (!active) return;
       if (!ref.current) return;
       const offset = {
         x: e.clientX - ref.current.getBoundingClientRect().x,
