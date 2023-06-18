@@ -4,8 +4,8 @@ import { FontAwesomeIcon, FontAwesomeIconProps } from "@fortawesome/react-fontaw
 import style from '@/style/PlasmaWindow.css';
 import { WindowManagerContext } from "@/DesktopEnviroment";
 import { Resizable } from "@/lib/Resizable";
-import type { PropsWithChildren, ReactNode } from "react";
-import { h, Fragment, JSX } from "preact";
+import type { PropsWithChildren } from "react";
+import { h, createContext } from "preact";
 import { useContext, useState } from "preact/hooks";
 
 type Props = {
@@ -19,6 +19,8 @@ type Props = {
 };
 
 let idCounter = 1;
+
+export const PlasmaWindowContext = createContext<Props>(null);
 
 export function createWindow(props: Omit<PropsWithChildren<Props>, 'id'>): Props {
   const id = idCounter++;
@@ -77,9 +79,11 @@ export function PlasmaWindow(props: PropsWithChildren<Props>) {
         </span>
       </div>
       <Resizable resizable={resizable}>
-        <div className="plasma-window-content">
-          {children}
-        </div>
+        <PlasmaWindowContext.Provider value={props}>
+          <div className="plasma-window-content">
+            {children}
+          </div>
+        </PlasmaWindowContext.Provider>
       </Resizable>
     </div>
   </Draggable>;
