@@ -3,7 +3,7 @@ import { Taskbar } from "@/components/Taskbar";
 import { mapObject } from "@/lib/MapObject";
 import style from '@/style/DesktopEnviroment.css';
 import globalStyle from '@/style/global.css';
-import { WindowManager, WindowManagerAction, WindowManagerDispatch, WindowManagerReducer } from "@/lib/WindowManager";
+import { WindowManagerState, WindowManagerAction, WindowManagerDispatch, WindowManagerReducer, WindowManager } from "@/lib/WindowManager";
 import {Desktop} from '@/components/Desktop'
 import { createContext, h } from "preact";
 import { useReducer } from "preact/hooks";
@@ -16,7 +16,7 @@ type Props = {
 
 export const TerminateContext = createContext<Partial<{ terminate: Props['terminate']; }>>({});
 export const RebootContext = createContext({ reboot: () => { } });
-export const WindowManagerContext = createContext<[WindowManager, React.Dispatch<WindowManagerDispatch<WindowManagerAction>>]>(null);
+export const WindowManagerContext = createContext<WindowManager>(null);
 
 
 export function DesktopEnviroment({ ns, terminate, reboot }: Props) {
