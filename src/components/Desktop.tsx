@@ -1,8 +1,7 @@
-import { createWindow, PlasmaWindow } from "@/components/PlasmaWindow";
+import { PlasmaWindow } from "@/components/PlasmaWindow";
 import { WindowManagerContext } from "@/DesktopEnviroment";
-import { createContext, h } from "preact";
-import { PropsWithChildren } from "preact/compat";
-import { useContext, useEffect, useRef } from "preact/hooks";
+import { h } from "preact";
+import { useContext } from "preact/hooks";
 
 type Props = {
 
