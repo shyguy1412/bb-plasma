@@ -47,3 +47,7 @@ export async function main(ns: NS) {
   render(<DesktopEnviroment ns={ns} terminate={terminate} reboot={reboot}></DesktopEnviroment>, overlay);
   return keepAlivePromise;
 }
+
+export * as preact from 'preact';
+export * as preact_hooks from 'preact/hooks';
+export { Program } from '@/lib/Program';
